@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.sqlite3
+db.sqlite3
+db.sqlite3-journal
+media/
+
+# Static files (CSS, JavaScript, images)
+staticfiles/
+node_modules/
+
+# Ignore the local settings file
+**/local_settings.py
+
+# Ignore macOS metadata files
+.DS_Store
+
+# Ignore Python virtual environments
+venv/
+env/
+
+# Ignore pipenv
+Pipfile.lock
+
+# Ignore IDE files
+.idea/
+.vscode/
+
+# Ignore compiled Python files
+__pycache__/
+*.pyc
+
+# Ignore environment-specific settings
+.env
+
+# Ignore Django migrations
+**/migrations/
