@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import status
 
 from .models import FoodNutrition
 from .serializers import FoodNutritionSerializer
@@ -18,8 +19,9 @@ def getRoutes(request):
         Response: A response object containing the list of available routes.
     """
     routes = [
-        '/nutrition_service_api/api/',
-        '/nutrition_service_api/api/get_all_food'
+        '/nutrition/api/v1/food/',
+        '/nutrition/api/v1/food/all/',
+        '/nutrition/api/v1/food/<str:tag>/'
     ]
     return(Response(routes))
 
@@ -35,10 +37,35 @@ def get_all_food(request):
     Returns:
         Response: A response object containing the serialized list of all food items.
     """
-    all_food = FoodNutrition.objects.all()
-    serializer = FoodNutritionSerializer(all_food, many=True)
-    return Response(serializer.data)
+    try: 
+        all_food = FoodNutrition.objects.all()
+        
+        if not all_food.exists():
+            return Response({'message': 'No food items found.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = FoodNutritionSerializer(all_food, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
-def get_food_by_tag(request):
-    pass
+def get_food_by_tag(request, tag):
+    """
+    Retrieve all food items from the giving tag in database.
+
+    Args:
+        request (Request): The request object.
+        tag (String): A string of tag type
+
+    Returns:
+        Response: A response object containing the serialized list of all food items in each tag request.
+    """
+    try:
+        foods = FoodNutrition.objects.filter(food_tag=tag)
+        if not foods.exists():
+            return Response({'message': 'No food items found for the given tag.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = FoodNutritionSerializer(foods, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
