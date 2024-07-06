@@ -38,3 +38,7 @@ def get_all_food(request):
     all_food = FoodNutrition.objects.all()
     serializer = FoodNutritionSerializer(all_food, many=True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+def get_food_by_tag(request):
+    pass
