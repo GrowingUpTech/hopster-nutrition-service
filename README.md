@@ -12,7 +12,12 @@ Brief description or introduction to your project.
 1. Create a `.env` file in the root directory of your project with the following content:
 
    ```bash
-    SECRET_KEY=your_secret_key_here
+    SECRET_KEY="<YOUR_SECRET_KEY>"
+    DATABASE_NAME="<YOUR_DATABASE_NAME>"
+    DATABASE_USERNAME="<YOUR_DATABASE_USERNAME>"
+    DATABASE_PASSWORD="<YOUR_DATABASE_PASSWORD>"
+    DATABASE_HOST="<YOUR_DATABASE_HOST>"
+    DATABASE_PORT="<YOUR_DATABASE_PORT>"
 
 ## Getting Started without Docker
 
@@ -59,6 +64,11 @@ Alternatively, you can use Docker to run the project:
 
 ## Environment Variables
 - SECRET_KEY: Django secret key
+- DATABASE_NAME= Django database name
+- DATABASE_USERNAME= Django database username
+- DATABASE_PASSWORD= Django datbase password
+- DATABASE_HOST= Django database host
+- DATABASE_PORT= Django database port
 
 ## Contributing
 We use the following branching strategy for contributions:
